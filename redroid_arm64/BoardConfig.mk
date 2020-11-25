@@ -1,0 +1,14 @@
+-include device/generic/arm64/BoardConfig.mk
+
+TARGET_USES_HWC2 := true
+
+SMALLER_FONT_FOOTPRINT := false
+MINIMAL_FONT_FOOTPRINT := false
+
+BUILD_EMULATOR_OPENGL := false
+
+BUILD_QEMU_IMAGES := true
+
+# just fix build
+BOARD_SYSTEMIMAGE_PARTITION_SIZE := 1500000000
+

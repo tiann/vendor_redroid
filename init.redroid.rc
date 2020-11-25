@@ -1,0 +1,45 @@
+on early-init
+    mount none /system/etc /etc bind rec  # docker fix
+    mount sysfs sysfs /sys rw remount  # ueventd fix
+
+    write /data/.empty 0
+    mount none /data/.empty /proc/vmallocinfo bind # lxcfs?
+
+on init
+    # system/core/libcutils/fs_config.cpp
+    chmod 00700 /system/bin/secilc
+    chmod 00750 /system/bin/uncrypt
+    chmod 00600 /system/build.prop
+    chmod 00600 /default.prop
+
+    # 04750 root:shell - /system/xbin/su
+    chmod 04750 /system/xbin/su
+    chown root:shell /system/xbin/su
+
+    # 00755 system:graphics cap_sys_nice /system/bin/surfaceflinger
+    exec - root -- /system/bin/setcap cap_sys_nice+ep /system/bin/surfaceflinger
+
+    # 00750 root:shell cap_setgid,cap_setuid /system/bin/run-as
+    chmod 00750 /system/bin/run-as
+    chown root:shell /system/bin/run-as
+    exec - root -- /system/bin/setcap cap_setgid,cap_setuid+ep /system/bin/run-as
+
+    # 0750 root:root cap_setgid,cap_setuid,cap_setpcap /system/bin/webview_zygote32
+    chmod 0750 /system/bin/webview_zygote32
+    exec - root -- /system/bin/setcap cap_setgid,cap_setuid,cap_setpcap+ep /system/bin/webview_zygote32
+
+    # 0750 root:root cap_setgid,cap_setuid,cap_setpcap /system/bin/webview_zygote64
+    chmod 0750 /system/bin/webview_zygote64
+    exec - root -- /system/bin/setcap cap_setgid,cap_setuid,cap_setpcap+ep /system/bin/webview_zygote64
+
+on boot
+    setprop debug.hwui.use_gpu_pixel_buffers false # swiftshader workaround?
+
+on property:sys.boot_completed=1
+    start boot_completed-setup
+
+service boot_completed-setup /system/etc/boot_completed.redroid.sh
+    user root
+    group root
+    oneshot
+

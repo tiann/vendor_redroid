@@ -1,0 +1,5 @@
+FROM scratch
+
+COPY . /
+
+ENTRYPOINT ["/init", "qemu=1"]
