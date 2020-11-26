@@ -1,14 +1,7 @@
--include device/generic/arm64/BoardConfig.mk
+include $(SRC_TARGET_DIR)/board/generic_arm64/BoardConfig.mk
 
-TARGET_USES_HWC2 := true
-
-SMALLER_FONT_FOOTPRINT := false
-MINIMAL_FONT_FOOTPRINT := false
+# 4K aligned
+BOARD_VENDORIMAGE_PARTITION_SIZE := 209715200
 
 BUILD_EMULATOR_OPENGL := false
-
-BUILD_QEMU_IMAGES := true
-
-# just fix build
-BOARD_SYSTEMIMAGE_PARTITION_SIZE := 1500000000
 

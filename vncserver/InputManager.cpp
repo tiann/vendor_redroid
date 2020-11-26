@@ -78,6 +78,9 @@ class BpInputManager: public android::BpInterface<IInputManager>
 
             data.writeInt32(ev.getDeviceId());
             data.writeInt32(ev.getSource());
+#if PLATFORM_VERSION > 9 // Android 10+
+            data.writeInt32(ev.getDisplayId());
+#endif
             data.writeInt32(ev.getAction());
             data.writeInt32(ev.getKeyCode());
             data.writeInt32(ev.getRepeatCount());

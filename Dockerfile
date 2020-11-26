@@ -4,4 +4,6 @@ COPY root /
 
 COPY system /system
 
-ENTRYPOINT ["/init", "qemu=1"]
+COPY vendor /vendor
+
+ENTRYPOINT ["/init", "qemu=1", "androidboot.hardware=goldfish"]

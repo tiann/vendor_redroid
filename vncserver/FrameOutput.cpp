@@ -146,12 +146,18 @@ static void doptr(int buttonMask, int x, int y, rfbClientPtr cl)
     ev->initialize(
             gTouchDeviceId /*deviceId*/,
             InputDevice::SOURCE_TOUCHSCREEN /*source*/,
+#if PLATFORM_VERSION > 9 // Android 10+
+            0 /*displayId*/,
+#endif
             action /*action*/,
             actionButton /*actionButton*/,
             0 /*flags*/,
             0 /*edgeFlags*/,
             0 /*metaState*/,
             buttonState /*buttonState*/,
+#if PLATFORM_VERSION > 9 // Android 10+
+            MotionClassification::NONE /*classification*/,
+#endif
             0.0f /*xOffset*/,
             0.0f /*yOffset*/,
             1.0f /*xPrecision*/,
@@ -280,6 +286,9 @@ static void dokey(rfbBool down, rfbKeySym key, rfbClientPtr cl)
         ev->initialize(
                 gKbdDeviceId /*deviceId*/,
                 InputDevice::SOURCE_KEYBOARD /*source*/,
+#if PLATFORM_VERSION > 9 // Android 10+
+                0 /*displayId*/,
+#endif
                 down ? AKEY_EVENT_ACTION_DOWN : AKEY_EVENT_ACTION_UP /* action*/,
                 0 /*flags*/,
                 keyCode /*keyCode*/,

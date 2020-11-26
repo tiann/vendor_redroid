@@ -18,3 +18,11 @@ PRODUCT_MAKEFILES := \
     $(LOCAL_DIR)/redroid_x86_64.mk \
     $(LOCAL_DIR)/redroid_arm64.mk \
 
+COMMON_LUNCH_CHOICES := \
+	redroid_x86_64-eng \
+	redroid_x86_64-userdebug \
+	redroid_x86_64-user \
+	redroid_arm64-eng \
+	redroid_arm64-userdebug \
+	redroid_arm64-user
+

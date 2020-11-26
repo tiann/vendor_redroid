@@ -12,8 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-$(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_arm64.mk)
 $(call inherit-product, $(LOCAL_PATH)/redroid.mk)
 
+# overrides
 PRODUCT_NAME := redroid_arm64
 PRODUCT_DEVICE := redroid_arm64
+PRODUCT_BRAND := ReDroid
+PRODUCT_MODEL := ReDroid
+

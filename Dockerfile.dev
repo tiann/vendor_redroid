@@ -2,4 +2,4 @@ FROM scratch
 
 COPY . /
 
-ENTRYPOINT ["/init", "qemu=1"]
+ENTRYPOINT ["/init", "qemu=1", "androidboot.hardware=goldfish"]

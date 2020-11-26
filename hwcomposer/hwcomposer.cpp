@@ -19,6 +19,8 @@
 #include <sys/resource.h>
 #include <unistd.h>
 #include <cstdlib>
+#include <cerrno>
+#include <cstring>
 
 #include <log/log.h>
 #include <hardware/hwcomposer.h>
