@@ -1,7 +1,8 @@
-include $(SRC_TARGET_DIR)/board/generic_arm64/BoardConfig.mk
+include device/generic/arm64/BoardConfig.mk
 
-# 4K aligned
-BOARD_VENDORIMAGE_PARTITION_SIZE := 209715200
+# use seperate vendor partition
+TARGET_COPY_OUT_VENDOR := vendor
 
-BUILD_EMULATOR_OPENGL := false
-
+PLATFORM_VERSION_MAJOR := $(word 1, $(subst ., ,$(PLATFORM_VERSION)))
+DEVICE_MANIFEST_FILE := vendor/redroid/manifest.$(PLATFORM_VERSION_MAJOR).xml
+PRODUCT_ENFORCE_VINTF_MANIFEST := true

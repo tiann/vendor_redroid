@@ -17,39 +17,14 @@ LOCAL_PATH:= $(call my-dir)
 include $(CLEAR_VARS)
 
 LOCAL_SRC_FILES := \
-	main.cpp \
-	EglWindow.cpp \
-	FrameOutput.cpp \
-	Program.cpp \
-	InputManager.cpp \
-	InputDevice.cpp
+	test.c \
 
-LOCAL_SHARED_LIBRARIES := \
-	libutils libbinder libgui libEGL libGLESv2 \
-	libz libcrypto libssl libjpeg libpng libcutils liblog libinput
-
-PLATFORM_VERSION_MAJOR := $(word 1, $(subst ., ,$(PLATFORM_VERSION)))
-
-ifneq ($(filter $(PLATFORM_VERSION_MAJOR), 9 10 11),)
-# Android 9 and above
-LOCAL_SHARED_LIBRARIES += libui
-endif
-
-LOCAL_C_INCLUDES := external/libvncserver \
-					frameworks/native/include
-
-LOCAL_STATIC_LIBRARIES += libvncserver
-
-LOCAL_INIT_RC := vncserver.rc
+LOCAL_C_INCLUDES := bionic/libc/kernel
 
 LOCAL_CFLAGS := -Werror -Wall
-LOCAL_CFLAGS += -Wno-multichar
-#LOCAL_CFLAGS += -UNDEBUG
-LOCAL_CFLAGS += -DPLATFORM_VERSION=$(PLATFORM_VERSION_MAJOR)
-
 
 LOCAL_MODULE_TAGS := optional
 
-LOCAL_MODULE:= vncserver
+LOCAL_MODULE:= binderfs
 
 include $(BUILD_EXECUTABLE)

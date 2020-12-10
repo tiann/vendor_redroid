@@ -12,17 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-PRODUCT_PACKAGE_OVERLAYS := $(LOCAL_PATH)/overlay
-
 AUDIOSERVER_MULTILIB := first
 
-# We don't want telephony support for now
+# ?
 PRODUCT_PROPERTY_OVERRIDES += \
 	ro.radio.noril=yes
 
-# Disable boot-animation permanently
 PRODUCT_PROPERTY_OVERRIDES += \
 	debug.sf.nobootanimation=1
+
+# required by sync.sh script
+PRODUCT_PACKAGES += \
+	fs_config
 
 PRODUCT_PACKAGES += \
 	vncserver \
@@ -31,41 +32,49 @@ PRODUCT_PACKAGES += \
 	libEGL_swiftshader \
 	libGLESv1_CM_swiftshader \
 	libGLESv2_swiftshader \
-	getcap \
-	setcap
 
 PRODUCT_PROPERTY_OVERRIDES += \
-	ro.kernel.qemu=1
-
-PRODUCT_PROPERTY_OVERRIDES += \
-	ro.hardware=goldfish \
-	ro.hardware.sensors=ranchu \
+	ro.kernel.qemu=1 \
+	ro.hardware=redroid \
 	ro.hardware.gatekeeper=ranchu \
-	ro.hardware.hwcomposer=redroid \
-	ro.hardware.gralloc=redroid \
+	ro.sf.lcd_density=320 \
 
-PLATFORM_VERSION_MAJOR := $(word 1, $(subst ., ,$(PLATFORM_VERSION)))
-
-ifneq ($(filter 10, $(PLATFORM_VERSION_MAJOR)), )
-# Android 10
+# Phone App required
 PRODUCT_PACKAGES += \
+	rild
+
+# WiFi required by SystemUI
+PRODUCT_PACKAGES += \
+	android.hardware.wifi@1.0-service
+
+PRODUCT_COPY_FILES += \
+	frameworks/native/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
+
+
+# required HIDL
+PRODUCT_PACKAGES += \
+	android.hardware.audio@2.0-service \
 	android.hardware.audio@4.0-impl \
 	android.hardware.audio.effect@4.0-impl \
+	android.hardware.drm@1.0-service \
+	android.hardware.drm@1.0-impl \
+	android.hardware.gatekeeper@1.0-service \
+	android.hardware.gatekeeper@1.0-impl \
+	gatekeeper.ranchu \
+	android.hardware.graphics.allocator@2.0-service \
+	android.hardware.graphics.allocator@2.0-impl \
+	android.hardware.graphics.mapper@2.0-impl-2.1 \
+	android.hardware.graphics.composer@2.1-service \
+	android.hardware.graphics.composer@2.1-impl \
+	android.hardware.health@2.0-service.goldfish \
+	android.hardware.keymaster@3.0-service \
+	android.hardware.keymaster@3.0-impl \
 
-else
-PRODUCT_PACKAGES += \
-    gralloc.minigbm \
-    gralloc.minigbm_intel \
-    gralloc.minigbm_meson \
-    libGLES_mesa
+USE_XML_AUDIO_POLICY_CONF := 1
 
-endif
-
-PRODUCT_COPY_FILES += $(LOCAL_PATH)/init.goldfish.rc:root/init.goldfish.rc \
-	$(LOCAL_PATH)/init.redroid.rc:system/etc/init.redroid.rc \
-	$(LOCAL_PATH)/boot_completed.redroid.sh:system/etc/boot_completed.redroid.sh \
-	$(LOCAL_PATH)/fstab.goldfish:root/fstab.goldfish \
-	$(LOCAL_PATH)/redroid.xml:system/etc/permissions/redroid.xml \
+PRODUCT_COPY_FILES += \
+	$(LOCAL_PATH)/boot_completed.redroid.sh:system/bin/boot_completed.redroid.sh \
 
 # Extend heap size we use for dalvik/art runtime
 $(call inherit-product, frameworks/native/build/tablet-7in-hdpi-1024-dalvik-heap.mk)
+

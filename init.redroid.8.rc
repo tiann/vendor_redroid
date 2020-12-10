@@ -1,0 +1,22 @@
+on early-init
+    mount none /system/etc /etc bind rec  # docker fix
+    mount sysfs sysfs /sys rw remount  # ueventd fix
+
+    write /data/.empty 0
+    mount none /data/.empty /proc/vmallocinfo bind # lxcfs?
+
+on fs
+    # no need to mount, and encryption not supported yet
+    trigger nonencrypted
+
+on boot
+#    setprop debug.hwui.use_gpu_pixel_buffers false # swiftshader workaround?
+
+on property:sys.boot_completed=1
+    start boot_completed-setup
+
+service boot_completed-setup /system/bin/boot_completed.redroid.sh
+    user root
+    group root
+    oneshot
+

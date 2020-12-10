@@ -144,10 +144,16 @@ static void doptr(int buttonMask, int x, int y, rfbClientPtr cl)
     }
 
     ev->initialize(
+#if PLATFORM_VERSION > 10 // Android 11+
+            0/*id*/,
+#endif
             gTouchDeviceId /*deviceId*/,
             InputDevice::SOURCE_TOUCHSCREEN /*source*/,
 #if PLATFORM_VERSION > 9 // Android 10+
             0 /*displayId*/,
+#endif
+#if PLATFORM_VERSION > 10 // Android 11+
+            { {} } /*std::array<uint8_t, 32> hmac*/,
 #endif
             action /*action*/,
             actionButton /*actionButton*/,
@@ -158,10 +164,18 @@ static void doptr(int buttonMask, int x, int y, rfbClientPtr cl)
 #if PLATFORM_VERSION > 9 // Android 10+
             MotionClassification::NONE /*classification*/,
 #endif
+#if PLATFORM_VERSION > 10 // Android 11+
+            0.0f /*xScale*/,
+            0.0f /*yScale*/,
+#endif
             0.0f /*xOffset*/,
             0.0f /*yOffset*/,
             1.0f /*xPrecision*/,
             1.0f /*yPrecision*/,
+#if PLATFORM_VERSION > 10 // Android 11+
+            0.0f /*rawXCursorPosition*/,
+            0.0f /*rawYCursorPosition*/,
+#endif
             now /*downTime*/,
             now /*eventTime*/,
             1 /*pointerCount*/,
@@ -284,10 +298,16 @@ static void dokey(rfbBool down, rfbKeySym key, rfbClientPtr cl)
         KeyEvent *ev = gInputEventFactory->createKeyEvent();
         uint64_t now = uptimeMillis();
         ev->initialize(
+#if PLATFORM_VERSION > 10 // Android 11+
+                0/*id*/,
+#endif
                 gKbdDeviceId /*deviceId*/,
                 InputDevice::SOURCE_KEYBOARD /*source*/,
 #if PLATFORM_VERSION > 9 // Android 10+
                 0 /*displayId*/,
+#endif
+#if PLATFORM_VERSION > 10 // Android 11+
+                { {} } /*std::array<uint8_t, 32> hmac*/,
 #endif
                 down ? AKEY_EVENT_ACTION_DOWN : AKEY_EVENT_ACTION_UP /* action*/,
                 0 /*flags*/,

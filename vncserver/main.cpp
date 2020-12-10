@@ -1,3 +1,6 @@
+#if PLATFORM_VERSION == 11
+#include "main_11.inc"
+#else
 /*
  * Copyright 2013 The Android Open Source Project
  *
@@ -302,4 +305,5 @@ int main(int argc UNUSED, char* const argv[] UNUSED) {
 
 	return err;
 }
+#endif
 

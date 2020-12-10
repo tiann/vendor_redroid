@@ -32,4 +32,8 @@
     <!-- Is the lock-screen disabled for new users by default -->
     <bool name="config_disableLockscreenByDefault">true</bool>
 
+    <!-- True if the device requires AppWidgetService even if it does not have
+     the PackageManager.FEATURE_APP_WIDGETS feature -->
+    <bool name="config_enableAppWidgetService">true</bool>
+
 </resources>
