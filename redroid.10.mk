@@ -29,6 +29,7 @@ PRODUCT_PACKAGES += \
 	vncserver \
 	hwcomposer.redroid \
 	gralloc.redroid \
+	gatekeeper.ranchu \
 	libEGL_swiftshader \
 	libGLESv1_CM_swiftshader \
 	libGLESv2_swiftshader \
@@ -38,7 +39,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 	ro.hardware=redroid \
 	ro.hardware.gatekeeper=ranchu \
 	ro.sf.lcd_density=320 \
-	persist.sys.fuse=1 \
 
 # Phone App required
 PRODUCT_PACKAGES += \
@@ -61,7 +61,6 @@ PRODUCT_PACKAGES += \
 	android.hardware.drm@1.0-impl \
 	android.hardware.gatekeeper@1.0-service \
 	android.hardware.gatekeeper@1.0-impl \
-	gatekeeper.ranchu \
 	android.hardware.graphics.allocator@2.0-service \
 	android.hardware.graphics.allocator@2.0-impl \
 	android.hardware.graphics.mapper@2.0-impl-2.1 \
