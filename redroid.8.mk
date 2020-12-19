@@ -29,6 +29,7 @@ PRODUCT_PACKAGES += \
 	vncserver \
 	hwcomposer.redroid \
 	gralloc.redroid \
+	gatekeeper.ranchu \
 	libEGL_swiftshader \
 	libGLESv1_CM_swiftshader \
 	libGLESv2_swiftshader \
@@ -54,26 +55,25 @@ PRODUCT_COPY_FILES += \
 # required HIDL
 PRODUCT_PACKAGES += \
 	android.hardware.audio@2.0-service \
-	android.hardware.audio@4.0-impl \
-	android.hardware.audio.effect@4.0-impl \
+	android.hardware.audio@2.0-impl \
+	android.hardware.audio.effect@2.0-impl \
+	android.hardware.configstore@1.1-service \
 	android.hardware.drm@1.0-service \
 	android.hardware.drm@1.0-impl \
 	android.hardware.gatekeeper@1.0-service \
 	android.hardware.gatekeeper@1.0-impl \
-	gatekeeper.ranchu \
 	android.hardware.graphics.allocator@2.0-service \
 	android.hardware.graphics.allocator@2.0-impl \
-	android.hardware.graphics.mapper@2.0-impl-2.1 \
 	android.hardware.graphics.composer@2.1-service \
 	android.hardware.graphics.composer@2.1-impl \
-	android.hardware.health@2.0-service.goldfish \
+	android.hardware.graphics.mapper@2.0-impl \
 	android.hardware.keymaster@3.0-service \
 	android.hardware.keymaster@3.0-impl \
 
-USE_XML_AUDIO_POLICY_CONF := 1
 
 PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/boot_completed.redroid.sh:system/bin/boot_completed.redroid.sh \
+
 
 # Extend heap size we use for dalvik/art runtime
 $(call inherit-product, frameworks/native/build/tablet-7in-hdpi-1024-dalvik-heap.mk)
