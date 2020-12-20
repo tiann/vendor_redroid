@@ -24,7 +24,7 @@ on fs
     trigger nonencrypted
 
 on boot
-#    setprop debug.hwui.use_gpu_pixel_buffers false # swiftshader workaround?
+    setprop debug.hwui.use_gpu_pixel_buffers false # swiftshader workaround?
 
 on property:sys.boot_completed=1
     start boot_completed-setup
