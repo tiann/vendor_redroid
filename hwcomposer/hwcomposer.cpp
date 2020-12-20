@@ -197,7 +197,7 @@ static int32_t hwc_attribute(struct ranchu_hwc_composer_device_1* pdev,
             return std::atoi(value);
         case HWC_DISPLAY_DPI_X:
         case HWC_DISPLAY_DPI_Y:
-            property_get("ro.kernel.redroid.density", value, "320");
+            property_get("ro.sf.lcd_density", value, "320");
             return std::atoi(value) * 1000 / 2;
         default:
             ALOGE("unknown display attribute %u", attribute);
@@ -326,16 +326,16 @@ static int hwc_open(const struct hw_module_t* module, const char* name,
     ALOGD("Set vsync period = %d", fps);
     pdev->vsync_period_ns = 1000 * 1000 * 1000 / fps;
 
-    hw_module_t const* hw_module;
-    ret = hw_get_module(GRALLOC_HARDWARE_MODULE_ID, &hw_module);
-    if (ret != 0) {
-        ALOGE("ranchu_hw_composer hwc_open %s module not found", GRALLOC_HARDWARE_MODULE_ID);
-        return ret;
-    }
- //   ret = framebuffer_open(hw_module, &pdev->fbdev);
- //   if (ret != 0) {
- //       ALOGE("ranchu_hw_composer hwc_open could not open framebuffer");
- //   }
+//    hw_module_t const* hw_module;
+//    ret = hw_get_module(GRALLOC_HARDWARE_MODULE_ID, &hw_module);
+//    if (ret != 0) {
+//        ALOGE("ranchu_hw_composer hwc_open %s module not found", GRALLOC_HARDWARE_MODULE_ID);
+//        return ret;
+//    }
+//    ret = framebuffer_open(hw_module, &pdev->fbdev);
+//    if (ret != 0) {
+//        ALOGE("ranchu_hw_composer hwc_open could not open framebuffer");
+//    }
 
     pthread_mutex_init(&pdev->vsync_lock, NULL);
     pdev->vsync_callback_enabled = false;

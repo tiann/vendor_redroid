@@ -19,12 +19,18 @@ on init
     chmod 0666 /dev/binderfs/binder
     chmod 0666 /dev/binderfs/vndbinder
 
+    # use updated swiftshader, disable gpu pixel buffer first
+    # reenable if use mesa
+    setprop debug.hwui.use_gpu_pixel_buffers false
+
 on fs
     # no need to mount, and encryption not supported yet
     trigger nonencrypted
 
 on boot
-    setprop debug.hwui.use_gpu_pixel_buffers false # swiftshader workaround?
+
+on boot && property:qemu.gles.vendor=mesa
+    setprop debug.hwui.use_gpu_pixel_buffers true
 
 on property:sys.boot_completed=1
     start boot_completed-setup
