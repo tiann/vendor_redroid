@@ -27,5 +27,6 @@ PRODUCT_MODEL := ReDroid
 PRODUCT_PACKAGE_OVERLAYS := $(LOCAL_PATH)/overlay.$(PLATFORM_VERSION_MAJOR)
 
 PRODUCT_COPY_FILES += \
-	$(LOCAL_PATH)/init.redroid.$(PLATFORM_VERSION_MAJOR).rc:/vendor/etc/init/hw/init.redroid.rc \
+	$(LOCAL_PATH)/init.redroid.$(PLATFORM_VERSION_MAJOR).rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.redroid.rc \
+    $(LOCAL_PATH)/boot_completed.redroid.sh:$(TARGET_COPY_OUT_VENDOR)/bin/boot_completed.redroid.sh \
 

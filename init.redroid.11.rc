@@ -16,7 +16,7 @@ on boot
 on property:sys.boot_completed=1
     start boot_completed-setup
 
-service boot_completed-setup /system/bin/boot_completed.redroid.sh
+service boot_completed-setup /vendor/bin/boot_completed.redroid.sh
     user root
     group root
     oneshot

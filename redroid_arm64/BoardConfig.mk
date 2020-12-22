@@ -1,5 +1,8 @@
 include device/generic/arm64/BoardConfig.mk
 
+# Android 8 / 9
+TARGET_USES_HWC2 := true
+
 # want all fonts
 SMALLER_FONT_FOOTPRINT := false
 MINIMAL_FONT_FOOTPRINT := false

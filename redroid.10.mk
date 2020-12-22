@@ -73,10 +73,6 @@ PRODUCT_PACKAGES += \
 USE_XML_AUDIO_POLICY_CONF := 1
 
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/boot_completed.redroid.sh:system/bin/boot_completed.redroid.sh \
-
-
-PRODUCT_COPY_FILES += \
     device/generic/goldfish/camera/media_profiles.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_profiles_V1_0.xml \
     device/generic/goldfish/camera/media_codecs.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_audio.xml \

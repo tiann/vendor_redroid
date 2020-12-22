@@ -1,2 +1,2 @@
-service vncserver /system/bin/vncserver
+service vncserver /vendor/bin/vncserver
     class main
