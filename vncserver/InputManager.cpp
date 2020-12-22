@@ -76,10 +76,16 @@ class BpInputManager: public android::BpInterface<IInputManager>
         {
             data.writeInt32(PARCEL_TOKEN_KEY_EVENT);
 
+#if PLATFORM_VERSION > 10 // Android 11+
+            data.writeInt32(ev.getId());
+#endif
             data.writeInt32(ev.getDeviceId());
             data.writeInt32(ev.getSource());
 #if PLATFORM_VERSION > 9 // Android 10+
             data.writeInt32(ev.getDisplayId());
+#endif
+#if PLATFORM_VERSION > 10 // Android 11+
+            data.writeByteVector(std::vector<uint8_t>(ev.getHmac().begin(), ev.getHmac().end()));
 #endif
             data.writeInt32(ev.getAction());
             data.writeInt32(ev.getKeyCode());

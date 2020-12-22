@@ -30,7 +30,6 @@
 using namespace android;
 
 static constexpr int kGlBytesPerPixel = 4;      // GL_RGBA
-static constexpr long NS_PER_MS = 1000000;
 
 static InputEventFactoryInterface *gInputEventFactory = new PreallocatedInputEventFactory();
 static int32_t gTouchDeviceId, gKbdDeviceId;
@@ -76,7 +75,7 @@ static void doptr(int buttonMask, int x, int y, rfbClientPtr cl)
     gPointer.clear();
 
     ClientData *data = (ClientData *) (cl->clientData);
-    uint64_t now = uptimeMillis() * NS_PER_MS;
+    uint64_t now = systemTime(SYSTEM_TIME_MONOTONIC);
     MotionEvent *ev = gInputEventFactory->createMotionEvent();
     int32_t action = 0, actionButton = 0, buttonState = 0;
     if (buttonMask)
