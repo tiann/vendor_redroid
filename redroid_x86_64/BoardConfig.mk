@@ -10,7 +10,8 @@ MINIMAL_FONT_FOOTPRINT := false
 # use seperate vendor partition
 TARGET_COPY_OUT_VENDOR := vendor
 
-BOARD_GPU_DRIVERS := i915 i965 nouveau
+# i915g soong build error
+BOARD_GPU_DRIVERS := i915 i965 nouveau kmsro r300g r600g virgl vmwgfx etnaviv iris tegra
 BOARD_USES_MINIGBM := true
 
 PLATFORM_VERSION_MAJOR := $(word 1, $(subst ., ,$(PLATFORM_VERSION)))

@@ -17,6 +17,7 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base.mk)
 
 PLATFORM_VERSION_MAJOR := $(word 1, $(subst ., ,$(PLATFORM_VERSION)))
 $(call inherit-product, $(LOCAL_PATH)/redroid.$(PLATFORM_VERSION_MAJOR).mk)
+$(call inherit-product, $(LOCAL_PATH)/redroid_x86_64/device.mk)
 
 # overrides
 PRODUCT_NAME := redroid_arm64
