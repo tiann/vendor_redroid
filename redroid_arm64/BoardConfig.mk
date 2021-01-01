@@ -7,10 +7,14 @@ TARGET_USES_HWC2 := true
 SMALLER_FONT_FOOTPRINT := false
 MINIMAL_FONT_FOOTPRINT := false
 
+# Android 11 enabled this
+BUILD_EMULATOR_OPENGL := false
+
 # use seperate vendor partition
 TARGET_COPY_OUT_VENDOR := vendor
 
-BOARD_GPU_DRIVERS := freedreno lima panfrost
+# TODO add panfrost
+BOARD_GPU_DRIVERS := freedreno lima
 BOARD_USES_MINIGBM := true
 
 PLATFORM_VERSION_MAJOR := $(word 1, $(subst ., ,$(PLATFORM_VERSION)))

@@ -24,7 +24,8 @@ on fs
     trigger nonencrypted
 
 on boot
-#    setprop debug.hwui.use_gpu_pixel_buffers false # swiftshader workaround?
+    # ION currently not supported
+    setprop debug.stagefright.ccodec 0
 
 on property:sys.boot_completed=1
     start boot_completed-setup
