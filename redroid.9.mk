@@ -14,7 +14,9 @@
 
 PRODUCT_SOONG_NAMESPACES += external/mesa3d
 
-AUDIOSERVER_MULTILIB := first
+# Arm64 linker failed, complain unsupported TLS DT entry
+# caused by libclang_rt.ubsan_standalone-aarch64-android.so ??
+# AUDIOSERVER_MULTILIB := first
 
 # ?
 PRODUCT_PROPERTY_OVERRIDES += \
