@@ -58,12 +58,14 @@ PRODUCT_COPY_FILES += \
 
 # required HIDL
 PRODUCT_PACKAGES += \
+	audio.r_submix.default \
 	android.hardware.audio@2.0-service \
 	android.hardware.audio@2.0-impl \
 	android.hardware.audio.effect@2.0-impl \
 	android.hardware.configstore@1.1-service \
 	android.hardware.drm@1.0-service \
 	android.hardware.drm@1.0-impl \
+	android.hardware.drm@1.1-service.clearkey \
 	android.hardware.gatekeeper@1.0-service \
 	android.hardware.gatekeeper@1.0-impl \
 	android.hardware.graphics.allocator@2.0-service \
@@ -80,6 +82,8 @@ PRODUCT_COPY_FILES += \
 	frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_audio.xml \
 	frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_telephony.xml \
 	frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_video.xml \
+	frameworks/av/media/libeffects/data/audio_effects.conf:$(TARGET_COPY_OUT_VENDOR)/etc/audio_effects.conf \
+	device/generic/goldfish/audio_policy.conf:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy.conf \
 
 
 # Extend heap size we use for dalvik/art runtime
