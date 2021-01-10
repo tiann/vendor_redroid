@@ -5,6 +5,8 @@ on early-init
     write /data/.empty 0
     mount none /data/.empty /proc/vmallocinfo bind # lxcfs?
 
+    symlink /system/bin /bin
+
     # Mount binderfs
     mkdir /dev/binderfs
     mount binder binder /dev/binderfs stats=global
