@@ -18,19 +18,57 @@ on early-init
     chmod 0666 /dev/binderfs/binder
     chmod 0666 /dev/binderfs/vndbinder
 
+    setprop net.eth0.dns3 8.8.8.8
+    setprop net.eth0.dns4 8.8.4.4
+
+
 on fs
     # no need to mount, and encryption not supported yet
     trigger nonencrypted
+
+on post-fs-data
+    setprop vold.post_fs_data_done 1
+    mkdir /data/vendor/var 0755 root root
+    mkdir /data/vendor/var/run 0755 root root
+    mkdir /data/vendor/var/run/netns 0755 root root
+
+on zygote-start
+    # Create the directories used by the Wireless subsystem
+    mkdir /data/vendor/wifi 0771 wifi wifi
+    mkdir /data/vendor/wifi/wpa 0770 wifi wifi
+    mkdir /data/vendor/wifi/wpa/sockets 0770 wifi wifi
 
 on boot
     # ION currently not supported
     setprop debug.stagefright.ccodec 0
 
-on property:sys.boot_completed=1
-    start boot_completed-setup
+    setprop wifi.interface wlan0
+    setprop wifi.direct.interface p2p-dev-wlan0
 
-service boot_completed-setup /vendor/bin/boot_completed.redroid.sh
+# make sure start after netd
+service redroid-net /vendor/bin/init.redroid-net.sh
+    class core
     user root
-    group root
+    group root wakelock wifi
     oneshot
 
+service ipv6proxy /vendor/bin/execns router /vendor/bin/ipv6proxy -o eth0 -i wlan1,radio0-peer
+    user root
+    group root
+    disabled
+
+service emu_hostapd /vendor/bin/execns router /vendor/bin/hostapd_nohidl /data/vendor/wifi/hostapd/hostapd.conf
+    user root
+    group root wifi net_raw net_admin
+    disabled
+
+service dhcpserver /vendor/bin/execns router /vendor/bin/dhcpserver --exclude-interface eth0
+    user root
+    group root
+    disabled
+
+service wpa_supplicant /vendor/bin/hw/wpa_supplicant -Dnl80211 -iwlan0 -c/vendor/etc/wifi/wpa_supplicant.conf -g@android:wpa_wlan0
+    socket wpa_wlan0 dgram 660 wifi wifi
+    group system wifi inet
+    oneshot
+    disabled

@@ -35,6 +35,7 @@ PRODUCT_PACKAGES += \
     libEGL_swiftshader \
     libGLESv1_CM_swiftshader \
     libGLESv2_swiftshader \
+	iw_vendor \
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.kernel.qemu=1 \
@@ -45,6 +46,20 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Phone App required
 PRODUCT_PACKAGES += \
     rild
+
+# WiFi: vendor side
+PRODUCT_PACKAGES += \
+	mac80211_create_radios \
+
+PRODUCT_PACKAGES += \
+	createns \
+	dhcpserver \
+	execns \
+	hostapd \
+	hostapd_nohidl \
+	ipv6proxy \
+	wpa_supplicant \
+
 
 # WiFi required by SystemUI
 PRODUCT_PACKAGES += \
@@ -77,6 +92,14 @@ PRODUCT_PACKAGES += \
 USE_XML_AUDIO_POLICY_CONF := 1
 
 PRODUCT_COPY_FILES += \
+	$(LOCAL_PATH)/init.redroid-net.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.redroid-net.sh \
+	$(LOCAL_PATH)/adbd.wifi.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/adbd.wifi.rc \
+	device/generic/goldfish/wifi/init.wifi.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.wifi.sh \
+	device/generic/goldfish/wifi/simulated_hostapd.conf:$(TARGET_COPY_OUT_VENDOR)/etc/simulated_hostapd.conf \
+    device/generic/goldfish/wifi/wpa_supplicant.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant.conf \
+    device/generic/goldfish/wifi/WifiConfigStore.xml:data/misc/wifi/WifiConfigStore.xml \
+    frameworks/native/data/etc/android.hardware.wifi.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.xml \
+    frameworks/native/data/etc/android.hardware.wifi.direct.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.direct.xml \
     device/generic/goldfish/camera/media_profiles.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_profiles_V1_0.xml \
     device/generic/goldfish/camera/media_codecs.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_audio.xml \

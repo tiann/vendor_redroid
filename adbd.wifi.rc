@@ -1,0 +1,8 @@
+service adbd-wifi /vendor/bin/execns router /system/bin/adbd --root_seclabel=u:r:su:s0
+    socket adbd seqpacket 660 system system
+    disabled
+    seclabel u:r:adbd:s0
+
+on boot && property:ro.kernel.qemu.wifi=1
+    stop adbd
+    start adbd-wifi

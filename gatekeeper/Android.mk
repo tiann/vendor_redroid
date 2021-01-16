@@ -14,6 +14,8 @@
 # limitations under the License.
 #
 
+PLATFORM_VERSION_MAJOR := $(word 1, $(subst ., ,$(PLATFORM_VERSION)))
+ifneq ($(filter 7 8 9, $(PLATFORM_VERSION_MAJOR)), )
 LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
@@ -43,3 +45,4 @@ LOCAL_SHARED_LIBRARIES := \
 LOCAL_STATIC_LIBRARIES := libscrypt_static
 LOCAL_C_INCLUDES := external/scrypt/lib/crypto
 include $(BUILD_SHARED_LIBRARY)
+endif
